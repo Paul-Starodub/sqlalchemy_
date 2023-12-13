@@ -28,4 +28,6 @@ address = Table(
     Column("email", String, nullable=False),
 )
 
-print(user_table.c.keys())
+# print(user_table.c.keys())
+metadata.create_all(engine)
+metadata.drop_all(engine)
