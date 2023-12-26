@@ -11,8 +11,8 @@ class AbstractModel:
 
 
 class UserModel(AbstractModel):
-    pass
+    __tablename__ = "users"
 
 
 class AddressModel(AbstractModel):
-    pass
+    __tablename__ = "addresses"
