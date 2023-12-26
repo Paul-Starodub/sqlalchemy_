@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import as_declarative, declared_attr
 
 
@@ -17,7 +17,15 @@ class AbstractModel:
 
 class UserModel(AbstractModel):
     __tablename__ = "users"
+    name = Column(String(30))
+    full_name = Column(String)
 
 
 class AddressModel(AbstractModel):
     __tablename__ = "addresses"
+    email = Column(String, nullable=False)
+    user_id = Column(ForeignKey("users.id"))
+
+
+print(UserModel.__tablename__)
+print(AddressModel.__tablename__)
