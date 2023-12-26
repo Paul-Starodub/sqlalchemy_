@@ -1,14 +1,12 @@
 from sqlalchemy import create_engine, Column, Integer
-from sqlalchemy.orm import registry, declarative_base
+from sqlalchemy.orm import as_declarative
 
 
 engine = create_engine("sqlite+pysqlite:///:memory:", echo=True)
-mapper_registry = registry()  # looks like metadata
-# Base = mapper_registry.generate_base()  # old style
-Base = declarative_base()
 
 
-class AbstractModel(Base):
+@as_declarative()
+class AbstractModel:
     id = Column(Integer, autoincrement=True, primary_key=True)
 
 
