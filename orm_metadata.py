@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.orm import as_declarative, declared_attr
+from sqlalchemy import create_engine, Integer, String, ForeignKey
+from sqlalchemy.orm import as_declarative, declared_attr, mapped_column
 
 
 engine = create_engine("sqlite+pysqlite:///:memory:", echo=True)
@@ -7,7 +7,7 @@ engine = create_engine("sqlite+pysqlite:///:memory:", echo=True)
 
 @as_declarative()
 class AbstractModel:
-    id = Column(Integer, autoincrement=True, primary_key=True)
+    id = mapped_column(Integer, autoincrement=True, primary_key=True)
 
     @classmethod
     @declared_attr
@@ -17,14 +17,14 @@ class AbstractModel:
 
 class UserModel(AbstractModel):
     __tablename__ = "users"
-    name = Column(String(30))
-    full_name = Column(String)
+    name = mapped_column(String(30))
+    full_name = mapped_column(String)
 
 
 class AddressModel(AbstractModel):
     __tablename__ = "addresses"
-    email = Column(String, nullable=False)
-    user_id = Column(ForeignKey("users.id"))
+    email = mapped_column(String, nullable=False)
+    user_id = mapped_column(ForeignKey("users.id"))
 
 
 print(UserModel.__tablename__)
